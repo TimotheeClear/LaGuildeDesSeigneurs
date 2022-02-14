@@ -23,4 +23,16 @@ interface CharacterServiceInterface
      * Delete the character
      */
     public function delete(Character $character);
+
+    //CharacterServiceInterface
+    /**
+     *  Gets images randomly
+     */
+    public function getImages(int $number, ?string $kind = null);
+
+    /**
+     *  Gets images randomly using kind
+     */
+    public function getImagesKind(string $kind, int $number);
+
 }
