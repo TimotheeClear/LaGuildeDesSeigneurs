@@ -59,6 +59,24 @@ class CharacterControllerTest extends WebTestCase
     public function assertError404($statusCode){
         $this->assertEquals(404, $statusCode);
     }
+
+    /**
+     * Tests modify
+     */
+    public function testModify(){
+        $this->client->request('PUT', '/character/modify/3');
+        $this->assertJsonResponse();
+    }
+
+    /**
+     * Tests delete
+     */
+    public function testDelete(){
+        $this->client->request('DELETE', '/character/delete/3');
+        $this->assertJsonResponse();
+    }
+
+
     
     /**
      * Asserts that a Response is in json
