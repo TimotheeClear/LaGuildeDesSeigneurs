@@ -34,6 +34,7 @@ class CharacterService implements CharacterServiceInterface
             ->setImage('/images/gorthol.jpg')
             ->setIdentifier(hash("sha1", uniqid()))
             ->setCreation(new DateTime())
+            ->setModification(new DateTime())
         ;
 
         $this->em->persist($character);
@@ -68,6 +69,7 @@ class CharacterService implements CharacterServiceInterface
             ->setIntelligence(110)
             ->setLife(13)
             ->setImage('/images/gorthol.jpg')
+            ->setModification(new DateTime())
         ;
 
         $this->em->persist($character);

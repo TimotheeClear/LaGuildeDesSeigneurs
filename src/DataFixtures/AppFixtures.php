@@ -24,6 +24,7 @@ class AppFixtures extends Fixture
                 ->setImage('/images/gorthol.jpg')
                 ->setIdentifier(hash('sha1', uniqid()))
                 ->setCreation(new DateTime())
+                ->setModification(new DateTime())
             ;
 
             $manager->persist($character);
@@ -39,6 +40,7 @@ class AppFixtures extends Fixture
                 ->setImage('/images/eldalote.jpg')
                 ->setIdentifier(hash('sha1', uniqid()))
                 ->setCreation(new DateTime())
+                ->setModification(new DateTime())
             ;
             $manager->persist($character);
         }
