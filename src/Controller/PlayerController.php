@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Player;
 use App\Service\PlayerServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 class PlayerController extends AbstractController
 {
@@ -32,7 +33,7 @@ class PlayerController extends AbstractController
     {
         $this->denyAccessUnlessGranted('playerIndex', null);
         $players = $this->playerService->getAll();
-        return new JsonResponse($players);
+        return JsonResponse::fromJsonString($this->playerService->serializeJson($players));
     }
 
     //MODIFY
@@ -46,7 +47,7 @@ class PlayerController extends AbstractController
     public function modify(Request $request, Player $player){
         $this->denyAccessUnlessGranted('playerModify', $player);
         $player = $this->playerService->modify($player, $request->getContent());
-        return new JsonResponse($player->toArray());
+        return JsonResponse::fromJsonString($this->playerService->serializeJson($player));
     }
 
     //DELETE
@@ -75,10 +76,11 @@ class PlayerController extends AbstractController
      * name="player_display",
      * requirements={"identifier": "^([a-z0-9]{40})$"},
      * methods={"GET", "HEAD"})
+     * @Entity("player", expr="repository.findOneByIdentifier(identifier)")
      */
     public function display(Player $player){
         $this->denyAccessUnlessGranted('playerDisplay', $player);
-        return new JsonResponse($player->toArray());
+        return JsonResponse::fromJsonString($this->playerService->serializeJson($player));
     }
 
     /**
@@ -92,6 +94,6 @@ class PlayerController extends AbstractController
 
         $player = $this->playerService->create($request->getContent());
         
-        return new JsonResponse($player->toArray());
+        return JsonResponse::fromJsonString($this->playerService->serializeJson($player));
     }
 }

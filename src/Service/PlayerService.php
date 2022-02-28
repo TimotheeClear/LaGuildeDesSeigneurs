@@ -11,6 +11,11 @@ use Symfony\Component\Finder\Finder;
 use LogicException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class PlayerService implements PlayerServiceInterface
 {
@@ -92,12 +97,7 @@ class PlayerService implements PlayerServiceInterface
      */
     public function getAll()
     {
-        $playersFinal = array();
-        $players = $this->playerRepository->findAll();
-        foreach ($players as $player) {
-            $playersFinal[] = $player->toArray();
-        }
-        return $playersFinal;
+        return $this->playerRepository->findAll();
     }
 
     /**
@@ -130,5 +130,21 @@ class PlayerService implements PlayerServiceInterface
 
         return true;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function serializeJson($data)
+    {
+        $encoders = new JsonEncoder();
+        $defaultContext = [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($data) {
+                return $data->getIdentifier();
+            },
+        ];
+        $normalizers = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
+        $serializer = new Serializer([new DateTimeNormalizer(), $normalizers], [$encoders]);
+        return $serializer->serialize($data, 'json');}
+
 
 }

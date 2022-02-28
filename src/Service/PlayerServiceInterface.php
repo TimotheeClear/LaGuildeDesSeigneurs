@@ -33,4 +33,9 @@ interface PlayerServiceInterface
      * Delete the player
      */
     public function delete(Player $player);
+
+        /**
+     * Serialize the object(s)
+     */
+    public function serializeJson($data);
 }

@@ -41,4 +41,8 @@ interface CharacterServiceInterface
      */
     public function getImagesKind(string $kind, int $number);
 
+    /**
+     *  Serialize the object(s)
+     */
+    public function serializeJson($data);
 }
