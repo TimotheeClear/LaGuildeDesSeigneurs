@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CharacterRepository::class)
@@ -20,23 +21,41 @@ class Character
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=16)
-     */
-    private $name;
+    * @Assert\NotBlank
+    * @Assert\Length(
+    *     min = 3,
+    *     max = 16,
+    * )
+    * @ORM\Column(type="string")
+    */
+     private $name;
+    
 
     /**
-     * @ORM\Column(type="string", length=64)
-     */
+    * @Assert\NotBlank
+    * @Assert\Length(
+    *     min = 3,
+    *     max = 64,
+    * )     
+    * @ORM\Column(type="string")
+    */
     private $surname;
 
     /**
-     * @ORM\Column(type="string", length=16, nullable=true)
-     */
+    * @Assert\Length(
+    *     min = 3,
+    *     max = 16,
+    * )     
+    */
     private $caste;
 
     /**
-     * @ORM\Column(type="string", length=16, nullable=true)
-     */
+    * @Assert\Length(
+    *     min = 3,
+    *     max = 16,
+    * )    
+    * @ORM\Column(type="string")
+    */
     private $knowledge;
 
     /**
@@ -50,12 +69,21 @@ class Character
     private $life;
 
     /**
-     * @ORM\Column(type="string", length=128, nullable=true)
-     */
+    * @Assert\Length(
+    *     min = 5,
+    *     max = 128,
+    * )
+    * @ORM\Column(type="string")
+    */
     private $image;
 
     /**
-     * @ORM\Column(type="string", length=16)
+     *  @Assert\NotBlank 
+     *  @Assert\Length(
+     *      min = 3, 
+     *      max = 16,
+     *  )
+     * @ORM\Column(type="string")
      */
     private $kind;
 
@@ -65,8 +93,12 @@ class Character
     private $creation;
 
     /**
-     * @ORM\Column(type="string", length=40)
-     */
+    * @Assert\Length(
+    *     min = 40,
+    *     max = 40,
+    * )
+    * @ORM\Column(type="string")
+    */
     private $identifier;
 
     /**

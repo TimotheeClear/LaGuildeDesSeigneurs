@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PlayerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -56,6 +58,11 @@ class Player
      * @ORM\Column(type="string", length=40)
      */
     private $identifier;
+
+    public function __construct()
+    {
+        $this->characters = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -161,4 +168,5 @@ class Player
     public function toArray(){
         return get_object_vars($this);
     }
+
 }
