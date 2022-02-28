@@ -19,8 +19,13 @@ class PlayerControllerTest extends WebTestCase
      * Tests create
      */
     public function testCreate(){
-        $this->client->request('POST', '/player/create');
-
+        $this->client->request(
+            'POST',
+            '/player/create',
+            array(), //parameters
+            array(), //files
+            array('CONTENT_TYPE' => 'application/json'), //server
+            '{"firstname":"Tim","lastname":"Cléar","email":"truc@machin.fr","mirian":14}');
         $this->assertJsonResponse();
         $this->defineIdentifier();
         $this->assertIdentifier();
@@ -78,9 +83,25 @@ class PlayerControllerTest extends WebTestCase
      * Tests modify
      */
     public function testModify(){
-        $this->client->request('PUT', '/player/modify/'. self::$identifier);
-        $this->assertJsonResponse();
-        $this->assertIdentifier();
+                //Tests with partial data array
+                $this->client->request(
+                    'PUT',
+                    '/player/modify/' . self::$identifier,array(), //parameters
+                    array(), //files
+                    array('CONTENT_TYPE' => 'application/json'),//server
+                    '{"firstname":"Truc", "lastname":"Muche"}');
+                    $this->assertJsonResponse();
+                    $this->assertIdentifier();
+                    
+                //Tests with whole content
+                $this->client->request(
+                    'PUT',
+                    '/player/modify/' . self::$identifier,array(), //parameters
+                    array(), //files
+                    array('CONTENT_TYPE' => 'application/json'),//server
+                    '{"firstname":"Truc", "lastname":"Muche", "email":"truc@muche.com", "mirian":28}');
+                    $this->assertJsonResponse();
+                    $this->assertIdentifier();
     }
 
     /**

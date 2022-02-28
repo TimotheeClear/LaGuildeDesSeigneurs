@@ -7,7 +7,13 @@ interface CharacterServiceInterface
     /**
      * Creates the character
      */
-    public function create();
+    public function create(string $data);
+
+    /*** Checks if the entity has been well filled*/
+    public function isEntityFilled(Character $character);
+
+    /*** Submits the data to hydrate the object*/
+    public function submit(Character $character, $formName, $data);
 
     /**
      * Gets all the characters
@@ -17,7 +23,7 @@ interface CharacterServiceInterface
     /**
      * Modifies the character
      */
-    public function modify(Character $character);
+    public function modify(Character $character,  string $data);
 
     /**
      * Delete the character
