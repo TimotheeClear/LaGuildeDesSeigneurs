@@ -13,7 +13,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 class PlayerController extends AbstractController
 {
-    
     /**
      * @Route("/player",
      *  name="player_redirect_index",
@@ -44,7 +43,8 @@ class PlayerController extends AbstractController
      *  methods={"PUT", "HEAD"}
      * )
      */
-    public function modify(Request $request, Player $player){
+    public function modify(Request $request, Player $player)
+    {
         $this->denyAccessUnlessGranted('playerModify', $player);
         $player = $this->playerService->modify($player, $request->getContent());
         return JsonResponse::fromJsonString($this->playerService->serializeJson($player));
@@ -58,7 +58,8 @@ class PlayerController extends AbstractController
      *  methods={"DELETE", "HEAD"}
      * )
      */
-    public function delete(Player $player){
+    public function delete(Player $player)
+    {
         $this->denyAccessUnlessGranted('playerDelete', $player);
         $response = $this->playerService->delete($player);
         return new JsonResponse(array('delete' => $response));
@@ -72,13 +73,14 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @Route("/player/display/{identifier}", 
+     * @Route("/player/display/{identifier}",
      * name="player_display",
      * requirements={"identifier": "^([a-z0-9]{40})$"},
      * methods={"GET", "HEAD"})
      * @Entity("player", expr="repository.findOneByIdentifier(identifier)")
      */
-    public function display(Player $player){
+    public function display(Player $player)
+    {
         $this->denyAccessUnlessGranted('playerDisplay', $player);
         return JsonResponse::fromJsonString($this->playerService->serializeJson($player));
     }
@@ -93,7 +95,7 @@ class PlayerController extends AbstractController
         $this->denyAccessUnlessGranted('playerCreate');
 
         $player = $this->playerService->create($request->getContent());
-        
+
         return JsonResponse::fromJsonString($this->playerService->serializeJson($player));
     }
 }

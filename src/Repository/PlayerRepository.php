@@ -56,5 +56,6 @@ class PlayerRepository extends ServiceEntityRepository
             ->setParameter('identifier', $identifier)
             ->getQuery()
             ->getOneOrNullResult()
-    ;}
+    ;
+    }
 }

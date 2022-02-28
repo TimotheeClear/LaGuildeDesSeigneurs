@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Character;
-use LogisticException;
+use LogicException;
 
 class CharacterVoter extends Voter
 {
@@ -17,7 +17,7 @@ class CharacterVoter extends Voter
     public const CHARACTER_DELETE = 'characterDelete';
 
     private const ATTRIBUTES = array(
-        self::CHARACTER_DISPLAY, 
+        self::CHARACTER_DISPLAY,
         self::CHARACTER_CREATE,
         self::CHARACTER_INDEX,
         self::CHARACTER_MODIFY,
@@ -26,7 +26,7 @@ class CharacterVoter extends Voter
 
     protected function supports(string $attribute, $subject): bool
     {
-        if (null !== $subject){
+        if (null !== $subject) {
             return $subject instanceof Character && in_array($attribute, self::ATTRIBUTES);
         }
         return in_array($attribute, self::ATTRIBUTES);
@@ -54,7 +54,7 @@ class CharacterVoter extends Voter
                 return $this->canDelete();
                 break;
         }
-        throw new LogicExcepetion('Invalid attribute: ' . $attribute);
+        throw new LogicException('Invalid attribute: ' . $attribute);
     }
 
     /**
@@ -88,7 +88,4 @@ class CharacterVoter extends Voter
     {
         return true;
     }
-
-    
-
 }

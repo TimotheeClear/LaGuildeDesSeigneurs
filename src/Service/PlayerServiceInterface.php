@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Service;
+
 use App\Entity\Player;
 
 interface PlayerServiceInterface
@@ -13,7 +15,7 @@ interface PlayerServiceInterface
      * Checks if the entity has been well filled
      */
     public function isEntityFilled(Player $player);
-    
+
     /**
      * Submits the data to hydrate the object
      */
@@ -34,7 +36,7 @@ interface PlayerServiceInterface
      */
     public function delete(Player $player);
 
-        /**
+    /**
      * Serialize the object(s)
      */
     public function serializeJson($data);

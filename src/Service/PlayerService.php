@@ -23,7 +23,8 @@ class PlayerService implements PlayerServiceInterface
     private $playerRepository;
     private $formFactory;
 
-    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory){
+    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory)
+    {
         $this->playerRepository = $playerRepository;
         $this->em = $em;
         $this->formFactory = $formFactory;
@@ -50,7 +51,7 @@ class PlayerService implements PlayerServiceInterface
 
         return $player;
     }
-    
+
 
     /**
      * {@inheritdoc}
@@ -65,10 +66,10 @@ class PlayerService implements PlayerServiceInterface
             null === $player->getCreationDate() ||
             null === $player->getModificationDate() ||
             null === $player->getLastConnectionDate()) {
-            throw new UnprocessableEntityHttpException('Missing data for Entity -> ' . json_encode($player->toArray()));
+            throw new UnprocessableEntityHttpException('Missing data for Entity -> ' . $this->serializeJson($player));
         }
     }
-   
+
     /**
      * {@inheritdoc}
      */
@@ -103,7 +104,8 @@ class PlayerService implements PlayerServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function modify(Player $player, string $data){
+    public function modify(Player $player, string $data)
+    {
         $this->submit($player, PlayerType::class, $data);
         $this->isEntityFilled($player);
         $player
@@ -123,8 +125,8 @@ class PlayerService implements PlayerServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function delete(Player $player){
-        
+    public function delete(Player $player)
+    {
         $this->em->remove($player);
         $this->em->flush();
 
@@ -144,7 +146,6 @@ class PlayerService implements PlayerServiceInterface
         ];
         $normalizers = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
         $serializer = new Serializer([new DateTimeNormalizer(), $normalizers], [$encoders]);
-        return $serializer->serialize($data, 'json');}
-
-
+        return $serializer->serialize($data, 'json');
+    }
 }

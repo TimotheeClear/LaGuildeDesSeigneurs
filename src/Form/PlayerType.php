@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-
 class PlayerType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

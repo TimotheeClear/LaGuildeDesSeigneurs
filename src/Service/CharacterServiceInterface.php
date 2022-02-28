@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Service;
+
 use App\Entity\Character;
 
 interface CharacterServiceInterface
@@ -23,7 +25,7 @@ interface CharacterServiceInterface
     /**
      * Modifies the character
      */
-    public function modify(Character $character,  string $data);
+    public function modify(Character $character, string $data);
 
     /**
      * Delete the character

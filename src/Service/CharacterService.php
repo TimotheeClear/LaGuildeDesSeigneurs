@@ -18,7 +18,6 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-
 class CharacterService implements CharacterServiceInterface
 {
     private $em;
@@ -26,7 +25,8 @@ class CharacterService implements CharacterServiceInterface
     private $formFactory;
     private $validator;
 
-    public function __construct(CharacterRepository $characterRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory, ValidatorInterface $validator){
+    public function __construct(CharacterRepository $characterRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory, ValidatorInterface $validator)
+    {
         $this->characterRepository = $characterRepository;
         $this->em = $em;
         $this->formFactory = $formFactory;
@@ -61,10 +61,10 @@ class CharacterService implements CharacterServiceInterface
     {
         $errors = $this->validator->validate($character);
         if (count($errors) > 0) {
-            throw new UnprocessableEntityHttpException((string) $errors . 'Missing data for Entity -> ' . json_encode($character->toArray()));
+            throw new UnprocessableEntityHttpException((string) $errors . 'Missing data for Entity -> ' . $this->serializeJson($character));
         }
     }
-   
+
     /**
      * {@inheritdoc}
      */
@@ -99,7 +99,8 @@ class CharacterService implements CharacterServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function modify(Character $character, string $data){
+    public function modify(Character $character, string $data)
+    {
         $this->submit($character, CharacterType::class, $data);
         $this->isEntityFilled($character);
         $character
@@ -115,8 +116,8 @@ class CharacterService implements CharacterServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function delete(Character $character){
-        
+    public function delete(Character $character)
+    {
         $this->em->remove($character);
         $this->em->flush();
 
@@ -137,14 +138,12 @@ class CharacterService implements CharacterServiceInterface
             ->sortByName()
         ;
 
-        if (null !== $kind)
-        {
+        if (null !== $kind) {
             $finder->path('/' . $kind . '/');
         }
 
         $images = array();
-        foreach ($finder as $file) 
-        {
+        foreach ($finder as $file) {
             $images[] = '/images/' . $file->getPathname();
         }
         shuffle($images);
@@ -163,7 +162,8 @@ class CharacterService implements CharacterServiceInterface
     /**
     * {@inheritdoc}
     */
-    public function serializeJson($data){
+    public function serializeJson($data)
+    {
         $encoders = new JsonEncoder();
         $defaultContext = [
             AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($data) {
@@ -172,6 +172,6 @@ class CharacterService implements CharacterServiceInterface
         ];
         $normalizers = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
         $serializer = new Serializer([new DateTimeNormalizer(), $normalizers], [$encoders]);
-        return $serializer->serialize($data, 'json');}
-
+        return $serializer->serialize($data, 'json');
+    }
 }

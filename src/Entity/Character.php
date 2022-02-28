@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=CharacterRepository::class)
  * @ORM\Table (name="characters")
 */
- 
+
 class Character
 {
     /**
@@ -28,15 +28,15 @@ class Character
     * )
     * @ORM\Column(type="string")
     */
-     private $name;
-    
+    private $name;
+
 
     /**
     * @Assert\NotBlank
     * @Assert\Length(
     *     min = 3,
     *     max = 64,
-    * )     
+    * )
     * @ORM\Column(type="string")
     */
     private $surname;
@@ -45,7 +45,7 @@ class Character
     * @Assert\Length(
     *     min = 3,
     *     max = 16,
-    * )     
+    * )
     */
     private $caste;
 
@@ -53,7 +53,7 @@ class Character
     * @Assert\Length(
     *     min = 3,
     *     max = 16,
-    * )    
+    * )
     * @ORM\Column(type="string")
     */
     private $knowledge;
@@ -78,9 +78,9 @@ class Character
     private $image;
 
     /**
-     *  @Assert\NotBlank 
+     *  @Assert\NotBlank
      *  @Assert\Length(
-     *      min = 3, 
+     *      min = 3,
      *      max = 16,
      *  )
      * @ORM\Column(type="string")

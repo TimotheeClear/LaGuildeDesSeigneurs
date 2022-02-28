@@ -52,7 +52,7 @@ class CharacterControllerTest extends WebTestCase
         $client = $this->client;
         $client->request('GET', '/character/display/'. self::$identifier);
 
-        $this->assertJsonResponse($client->getResponse());
+        $this->assertJsonResponse();
         $this->assertIdentifier();
     }
 

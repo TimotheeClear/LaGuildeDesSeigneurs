@@ -51,7 +51,7 @@ class PlayerControllerTest extends WebTestCase
         $client = $this->client;
         $client->request('GET', '/player/display/'. self::$identifier);
 
-        $this->assertJsonResponse($client->getResponse());
+        $this->assertJsonResponse();
         $this->assertIdentifier();
     }
 

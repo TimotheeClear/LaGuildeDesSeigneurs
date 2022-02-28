@@ -11,8 +11,6 @@ use App\Service\CharacterServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
-
-
 class CharacterController extends AbstractController
 {
     /**
@@ -45,7 +43,8 @@ class CharacterController extends AbstractController
      *  methods={"PUT", "HEAD"}
      * )
      */
-    public function modify(Request $request, Character $character){
+    public function modify(Request $request, Character $character)
+    {
         $this->denyAccessUnlessGranted('characterModify', $character);
         $character = $this->characterService->modify($character, $request->getContent());
         return JsonResponse::fromJsonString($this->characterService->serializeJson($character));
@@ -59,7 +58,8 @@ class CharacterController extends AbstractController
      *  methods={"DELETE", "HEAD"}
      * )
      */
-    public function delete(Character $character){
+    public function delete(Character $character)
+    {
         $this->denyAccessUnlessGranted('characterDelete', $character);
         $response = $this->characterService->delete($character);
         return new JsonResponse(array('delete' => $response));
@@ -73,7 +73,7 @@ class CharacterController extends AbstractController
     }
 
     // /**
-    //  * @Route("/character", 
+    //  * @Route("/character",
     //  * name="character"),
     //  * methods={"GET", "HEAD"})
     //  */
@@ -85,13 +85,14 @@ class CharacterController extends AbstractController
     // }
 
     /**
-     * @Route("/character/display/{identifier}", 
+     * @Route("/character/display/{identifier}",
      * name="character_display",
      * requirements={"identifier": "^([a-z0-9]{40})$"},
      * methods={"GET", "HEAD"})
      * @Entity("character", expr="repository.findOneByIdentifier(identifier)")
      */
-    public function display(Character $character){
+    public function display(Character $character)
+    {
         $this->denyAccessUnlessGranted('characterDisplay', $character);
         return JsonResponse::fromJsonString($this->characterService->serializeJson($character));
     }
@@ -106,8 +107,9 @@ class CharacterController extends AbstractController
         $this->denyAccessUnlessGranted('characterCreate');
 
         $character = $this->characterService->create($request->getContent());
-        
-        return JsonResponse::fromJsonString($this->characterService->serializeJson($character));    }
+
+        return JsonResponse::fromJsonString($this->characterService->serializeJson($character));
+    }
 
     //IMAGES
     /**
@@ -137,7 +139,4 @@ class CharacterController extends AbstractController
         $this->denyAccessUnlessGranted('characterIndex', null);
         return new JsonResponse($this->characterService->getImagesKind($kind, $number));
     }
-
-
-
 }
