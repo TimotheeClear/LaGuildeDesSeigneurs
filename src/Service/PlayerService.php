@@ -122,10 +122,8 @@ class PlayerService implements PlayerServiceInterface
         ;
         
         //Dispatch event
-        dump($player);
         $event = new PlayerEvent($player);
         $this->dispatcher->dispatch($event, PlayerEvent::PLAYER_MODIFIED);
-        dd($player);
 
         $this->em->persist($player);
         $this->em->flush();
