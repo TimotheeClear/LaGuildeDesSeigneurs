@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\PlayerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,37 +22,47 @@ class Player
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=64)
-     */
+    * @ORM\Column(type="string", length=32)
+    * @Assert\Length(
+    *   min = 3,
+    *   max = 32)
+    */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=64)
-     */
+    * @ORM\Column(type="string", length=32)
+    * @Assert\Length(
+    *   min = 3,
+    *   max = 32)
+    */
     private $lastname;
-
+    
     /**
-     * @ORM\Column(type="string", length=128)
-     */
+    * @ORM\Column(type="string", length=128, nullable=true)
+    * @Assert\Length(
+    *   min = 3,
+    *   max = 128)
+    */
     private $email;
 
+    
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
+    * @ORM\Column(type="integer", nullable=true)
+    */
     private $mirian;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $creationDate;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $lastConnectionDate;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $modificationDate;
 
