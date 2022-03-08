@@ -11,23 +11,28 @@ use Symfony\Component\Finder\Finder;
 use LogicException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
+use App\Event\PlayerEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class PlayerService implements PlayerServiceInterface
 {
     private $em;
     private $playerRepository;
     private $formFactory;
+    private $dispatcher;
 
-    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory)
+    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory, EventDispatcherInterface $dispatcher,)
     {
         $this->playerRepository = $playerRepository;
         $this->em = $em;
         $this->formFactory = $formFactory;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -115,6 +120,12 @@ class PlayerService implements PlayerServiceInterface
             // ->setMirian(100000)
             ->setModificationDate(new DateTime())
         ;
+        
+        //Dispatch event
+        dump($player);
+        $event = new PlayerEvent($player);
+        $this->dispatcher->dispatch($event, PlayerEvent::PLAYER_MODIFIED);
+        dd($player);
 
         $this->em->persist($player);
         $this->em->flush();
