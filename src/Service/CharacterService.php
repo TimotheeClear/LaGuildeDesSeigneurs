@@ -96,14 +96,7 @@ class CharacterService implements CharacterServiceInterface
      */
     public function showMinIntelligence(int $minIntelligence)
     {
-        $smartCharacters = array();
-        $characters = $this->characterRepository->findAll();
-        foreach($characters as $character){
-            if ($character->getIntelligence() >= $minIntelligence){
-                array_push($smartCharacters, $character);
-            }
-        }
-        return $smartCharacters;
+        return $this->characterRepository->getAllByIntelligenceLevel($minIntelligence);
     }
 
 

@@ -23,6 +23,11 @@ interface CharacterServiceInterface
     public function getAll();
 
     /**
+     * Gets all the characters smartest (>=) than the input
+     */
+    public function showMinIntelligence(int $minIntelligence);
+
+    /**
      * Modifies the character
      */
     public function modify(Character $character, string $data);

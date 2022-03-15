@@ -47,6 +47,21 @@ class CharacterRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     *  Returns all the Characters based on their intelligence level
+     */
+    public function getAllByIntelligenceLevel(int $minIntelligence)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c', 'p')
+            ->leftJoin('c.player', 'p')
+            ->where('c.intelligence >= :level')
+            ->setParameter('level', $minIntelligence)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findOneByIdentifier($identifier)
     {
         return $this->createQueryBuilder('c')

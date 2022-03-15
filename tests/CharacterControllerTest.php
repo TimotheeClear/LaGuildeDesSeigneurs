@@ -9,6 +9,7 @@ class CharacterControllerTest extends WebTestCase
     private $client;
     private $content;
     private static $identifier;
+    private $intelligence;
 
     public function setup() : void
     {
@@ -42,6 +43,21 @@ class CharacterControllerTest extends WebTestCase
         $response = $this->client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertTrue($response->headers->contains('Content-Type', 'application/json'), $response->headers);
+    }
+
+    /**
+    * Tests showMinIntelligence
+    */
+    public function testShowMinIntelligence()
+    {
+        $this->client->request('GET', '/character/show_min_intelligence/110');
+        $this->assertJsonResponse($this->client->getResponse(), 200);
+
+        $this->client->request('GET', '/character/html/show_min_intelligence/110');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        $this->client->request('GET', '/character/api-html/show_min_intelligence/110');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
     /**
