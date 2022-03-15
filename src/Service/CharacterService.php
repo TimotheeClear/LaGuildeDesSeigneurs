@@ -94,6 +94,22 @@ class CharacterService implements CharacterServiceInterface
     /**
      * {@inheritdoc}
      */
+    public function showMinIntelligence(int $minIntelligence)
+    {
+        $smartCharacters = array();
+        $characters = $this->characterRepository->findAll();
+        foreach($characters as $character){
+            if ($character->getIntelligence() >= $minIntelligence){
+                array_push($smartCharacters, $character);
+            }
+        }
+        return $smartCharacters;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
     public function modify(Character $character, string $data)
     {
         $this->submit($character, CharacterType::class, $data);

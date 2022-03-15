@@ -58,6 +58,14 @@ class CharacterHtmlController extends AbstractController
         ]);
     }
 
+    #[Route('/show_min_intelligence/{minIntelligence}', name: 'app_character_html_show_min_intelligence', methods: ['GET'])]
+    public function showMinIntelligence(int $minIntelligence) : Response
+    {
+        return $this->render('character_html/index.html.twig', [
+            'characters' => $this->characterService->showMinIntelligence($minIntelligence),
+        ]);
+    }
+
     #[Route('/{id}/edit', name: 'app_character_html_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Character $character, EntityManagerInterface $entityManager): Response
     {

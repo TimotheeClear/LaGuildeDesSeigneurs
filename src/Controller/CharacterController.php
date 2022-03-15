@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Character;
 use App\Service\CharacterServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,6 +59,35 @@ class CharacterController extends AbstractController
     {
         $this->denyAccessUnlessGranted('characterIndex', null);
         $characters = $this->characterService->getAll();
+        return JsonResponse::fromJsonString($this->characterService->serializeJson($characters));
+    }
+    
+    //SHOW min intelligence
+    /**
+     * Displays Characters smartest than the input
+     * 
+     * @Route("/character/get_min_intelligence/{minIntelligence}",
+     *  name="character_get_min_intelligence",
+     *  methods={"GET", "HEAD"})
+     
+    * @OA\Response(
+    *     response=200,
+    *     description="Success",
+    *     @OA\Schema(
+    *         type="array",
+    *         @OA\Items(ref=@Model(type=Character::class))
+    *     )
+    * )
+    * @OA\Response(
+    *     response=403,
+    *     description="Access denied",
+    * )
+    * @OA\Tag(name="Character")
+     */
+    public function get_min_intelligence(int $minIntelligence)
+    {
+        $this->denyAccessUnlessGranted('characterGetMinIntelligence', null);
+        $characters = $this->characterService->showMinIntelligence($minIntelligence);
         return JsonResponse::fromJsonString($this->characterService->serializeJson($characters));
     }
 

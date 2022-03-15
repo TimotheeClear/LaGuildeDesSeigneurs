@@ -15,6 +15,7 @@ class CharacterVoter extends Voter
     public const CHARACTER_INDEX = 'characterIndex';
     public const CHARACTER_MODIFY = 'characterModify';
     public const CHARACTER_DELETE = 'characterDelete';
+    public const CHARACTER_MIN_INTELLIGENCE = 'characterGetMinIntelligence';
 
     private const ATTRIBUTES = array(
         self::CHARACTER_DISPLAY,
@@ -22,6 +23,7 @@ class CharacterVoter extends Voter
         self::CHARACTER_INDEX,
         self::CHARACTER_MODIFY,
         self::CHARACTER_DELETE,
+        self::CHARACTER_MIN_INTELLIGENCE,
     );
 
     protected function supports(string $attribute, $subject): bool
@@ -41,6 +43,7 @@ class CharacterVoter extends Voter
         //Defines access rights
         switch ($attribute) {
             case self::CHARACTER_DISPLAY:
+            case self::CHARACTER_MIN_INTELLIGENCE:
             case self::CHARACTER_INDEX:
                 return $this->canDisplay();
                 break;
