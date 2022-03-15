@@ -82,6 +82,19 @@ class CharacterApiHtmlController extends AbstractController
         ]);
     }
 
+
+    #[Route('/show_min_intelligence/{minIntelligence}', name: 'app_character_api_html_show_min_intelligence', methods: ['GET'])]
+    public function showMinIntelligence(int $minIntelligence) : Response
+    {
+        $response = $this->client->request(
+            'GET',
+            'http://localhost/LaGuildeDesSeigneurs/public/character/show_min_intelligence/' . $minIntelligence);
+            
+            return $this->render('character_api_html/index.html.twig', [
+            'characters' => $response->toArray(),
+        ]);
+    }
+
     /**
      * @Route("/{identifier}/edit", name="character_api_html_edit", methods={"GET","POST"})
      */

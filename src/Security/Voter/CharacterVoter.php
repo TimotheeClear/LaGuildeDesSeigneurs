@@ -15,7 +15,7 @@ class CharacterVoter extends Voter
     public const CHARACTER_INDEX = 'characterIndex';
     public const CHARACTER_MODIFY = 'characterModify';
     public const CHARACTER_DELETE = 'characterDelete';
-    public const CHARACTER_MIN_INTELLIGENCE = 'characterGetMinIntelligence';
+    public const CHARACTER_MIN_INTELLIGENCE = 'characterShowMinIntelligence';
 
     private const ATTRIBUTES = array(
         self::CHARACTER_DISPLAY,

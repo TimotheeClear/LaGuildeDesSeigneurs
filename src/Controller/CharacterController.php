@@ -9,6 +9,7 @@ use App\Entity\Character;
 use App\Service\CharacterServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 
@@ -66,8 +67,9 @@ class CharacterController extends AbstractController
     /**
      * Displays Characters smartest than the input
      * 
-     * @Route("/character/get_min_intelligence/{minIntelligence}",
-     *  name="character_get_min_intelligence",
+     * @Route("/character/show_min_intelligence/{minIntelligence}",
+     *  name="character_show_min_intelligence",
+     *  requirements={"minIntelligence": "^([0-9])*$"},
      *  methods={"GET", "HEAD"})
      
     * @OA\Response(
@@ -82,11 +84,20 @@ class CharacterController extends AbstractController
     *     response=403,
     *     description="Access denied",
     * )
+
+    * @OA\Parameter(
+    *     name="minIntelligence",
+    *     in="path",
+    *     description="minIntelligence for the Character",
+    *     required=true
+    * )
+
     * @OA\Tag(name="Character")
      */
-    public function get_min_intelligence(int $minIntelligence)
+
+    public function show_min_intelligence(int $minIntelligence)
     {
-        $this->denyAccessUnlessGranted('characterGetMinIntelligence', null);
+        $this->denyAccessUnlessGranted('characterShowMinIntelligence', null);
         $characters = $this->characterService->showMinIntelligence($minIntelligence);
         return JsonResponse::fromJsonString($this->characterService->serializeJson($characters));
     }
