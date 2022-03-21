@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% set gender = 'masculine' %}
+{% if character.kind == 'Dame' or character.kind == 'Ennemie' %}
+    {% set gender = 'feminine' %}
+{% endif %}
+
 {% block title %}Character{% endblock %}
 
 {% block body %}
@@ -15,7 +20,7 @@
             </tr>
             <tr>
                 <th>Identifier</th>
-                <td>{{ character.identifier }}</td>
+                <td>{{ character.identifier|identifier }}</td>
             </tr>
             <tr>
                 <th>Name</th>
@@ -59,6 +64,13 @@
             </tr>
         </tbody>
     </table>
+
+    <div>
+        {{ character.name }} est {{ feminisation(gender, 'un') }} {{ character.caste }}
+    </div>
+    <div>
+        force = {{ character|force }}
+    </div>
 
     <a href="{{ path('character_api_html_index') }}">back to list</a>
 
