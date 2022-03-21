@@ -101,6 +101,123 @@ class CharacterController extends AbstractController
         $characters = $this->characterService->showMinIntelligence($minIntelligence);
         return JsonResponse::fromJsonString($this->characterService->serializeJson($characters));
     }
+    
+    //SHOW min life
+    /**
+     * Displays Characters with more life than the input
+     * 
+     * @Route("/character/show_min_life/{minLife}",
+     *  name="character_show_min_life",
+     *  requirements={"minIntelligence": "^([0-9])*$"},
+     *  methods={"GET", "HEAD"})
+     
+    * @OA\Response(
+    *     response=200,
+    *     description="Success",
+    *     @OA\Schema(
+    *         type="array",
+    *         @OA\Items(ref=@Model(type=Character::class))
+    *     )
+    * )
+    * @OA\Response(
+    *     response=403,
+    *     description="Access denied",
+    * )
+
+    * @OA\Parameter(
+    *     name="minLife",
+    *     in="path",
+    *     description="minLife for the Character",
+    *     required=true
+    * )
+
+    * @OA\Tag(name="Character")
+     */
+
+    public function show_min_life(int $minLife)
+    {
+        $this->denyAccessUnlessGranted('characterShowMinLife', null);
+        $characters = $this->characterService->showMinLife($minLife);
+        return JsonResponse::fromJsonString($this->characterService->serializeJson($characters));
+    }
+
+    //SHOW same caste
+    /**
+     * Displays Characters with the same caste than the input
+     * 
+     * @Route("/character/show_same_caste/{caste}",
+     *  name="character_show_same_caste",
+     *  requirements={"caste": "^([a-zA-Z])*$"},
+     *  methods={"GET", "HEAD"})
+     
+    * @OA\Response(
+    *     response=200,
+    *     description="Success",
+    *     @OA\Schema(
+    *         type="array",
+    *         @OA\Items(ref=@Model(type=Character::class))
+    *     )
+    * )
+    * @OA\Response(
+    *     response=403,
+    *     description="Access denied",
+    * )
+
+    * @OA\Parameter(
+    *     name="caste",
+    *     in="path",
+    *     description="caste for the Character",
+    *     required=true
+    * )
+
+    * @OA\Tag(name="Character")
+     */
+
+    public function show_same_caste(string $caste)
+    {
+        $this->denyAccessUnlessGranted('characterShowSameCaste', null);
+        $characters = $this->characterService->showSameCaste($caste);
+        return JsonResponse::fromJsonString($this->characterService->serializeJson($characters));
+    }
+
+    //SHOW same knowledge
+    /**
+     * Displays Characters with the same knowledge than the input
+     * 
+     * @Route("/character/show_same_knowledge/{knowledge}",
+     *  name="character_show_same_knowledge",
+     *  requirements={"knowledge": "^([a-zA-Z])*$"},
+     *  methods={"GET", "HEAD"})
+     
+    * @OA\Response(
+    *     response=200,
+    *     description="Success",
+    *     @OA\Schema(
+    *         type="array",
+    *         @OA\Items(ref=@Model(type=Character::class))
+    *     )
+    * )
+    * @OA\Response(
+    *     response=403,
+    *     description="Access denied",
+    * )
+
+    * @OA\Parameter(
+    *     name="knowledge",
+    *     in="path",
+    *     description="knowledge for the Character",
+    *     required=true
+    * )
+
+    * @OA\Tag(name="Character")
+     */
+
+    public function show_same_knowledge(string $knowledge)
+    {
+        $this->denyAccessUnlessGranted('characterShowSameKnowledge', null);
+        $characters = $this->characterService->showSameKnowledge($knowledge);
+        return JsonResponse::fromJsonString($this->characterService->serializeJson($characters));
+    }
 
     //MODIFY
     /**

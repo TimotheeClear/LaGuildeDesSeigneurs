@@ -62,6 +62,48 @@ class CharacterRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     *  Returns all the Characters based on their intelligence level
+     */
+    public function getAllByLifeLevel(int $minLife)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c', 'p')
+            ->leftJoin('c.player', 'p')
+            ->where('c.life >= :level')
+            ->setParameter('level', $minLife)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     *  Returns all the Characters based on their intelligence level
+     */
+    public function getAllByCaste(string $caste)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c', 'p')
+            ->leftJoin('c.player', 'p')
+            ->where('c.caste = :caste')
+            ->setParameter('caste', $caste)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     *  Returns all the Characters based on their intelligence level
+     */
+    public function getAllByKnowledge(string $knowledge)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c', 'p')
+            ->leftJoin('c.player', 'p')
+            ->where('c.knowledge = :knowledge')
+            ->setParameter('knowledge', $knowledge)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findOneByIdentifier($identifier)
     {
         return $this->createQueryBuilder('c')

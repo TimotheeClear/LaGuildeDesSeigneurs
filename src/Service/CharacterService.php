@@ -99,6 +99,29 @@ class CharacterService implements CharacterServiceInterface
         return $this->characterRepository->getAllByIntelligenceLevel($minIntelligence);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function showMinLife(int $minLife)
+    {
+        return $this->characterRepository->getAllByLifeLevel($minLife);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function showSameCaste(string $caste)
+    {
+        return $this->characterRepository->getAllByCaste($caste);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function showSameKnowledge(string $knowledge)
+    {
+        return $this->characterRepository->getAllByKnowledge($knowledge);
+    }
 
     /**
      * {@inheritdoc}

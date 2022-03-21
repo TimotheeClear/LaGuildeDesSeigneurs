@@ -28,6 +28,21 @@ interface CharacterServiceInterface
     public function showMinIntelligence(int $minIntelligence);
 
     /**
+     * Gets all the characters with more life (>=) than the input
+     */
+    public function showMinLife(int $minLife);
+
+    /**
+     * Gets all the characters with the same caste
+     */
+    public function showSameCaste(string $caste);
+
+    /**
+     * Gets all the characters with the same knowledge
+     */
+    public function showSameKnowledge(string $knowledge);
+
+    /**
      * Modifies the character
      */
     public function modify(Character $character, string $data);

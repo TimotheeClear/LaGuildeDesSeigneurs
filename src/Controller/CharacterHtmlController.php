@@ -66,6 +66,30 @@ class CharacterHtmlController extends AbstractController
         ]);
     }
 
+    #[Route('/show_min_life/{minLife}', name: 'app_character_html_show_min_life', methods: ['GET'])]
+    public function showMinLife(int $minLife) : Response
+    {
+        return $this->render('character_html/index.html.twig', [
+            'characters' => $this->characterService->showMinLife($minLife),
+        ]);
+    }
+
+    #[Route('/show_same_caste/{caste}', name: 'app_character_html_show_same_caste', methods: ['GET'])]
+    public function showSameCaste(string $caste) : Response
+    {
+        return $this->render('character_html/index.html.twig', [
+            'characters' => $this->characterService->showSameCaste($caste),
+        ]);
+    }
+
+    #[Route('/show_same_knowledge/{knowledge}', name: 'app_character_html_show_same_knowledge', methods: ['GET'])]
+    public function showSameKnowledge(string $knowledge) : Response
+    {
+        return $this->render('character_html/index.html.twig', [
+            'characters' => $this->characterService->showSameKnowledge($knowledge),
+        ]);
+    }
+
     #[Route('/{id}/edit', name: 'app_character_html_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Character $character, EntityManagerInterface $entityManager): Response
     {

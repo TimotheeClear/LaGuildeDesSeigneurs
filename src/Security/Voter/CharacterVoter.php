@@ -16,6 +16,9 @@ class CharacterVoter extends Voter
     public const CHARACTER_MODIFY = 'characterModify';
     public const CHARACTER_DELETE = 'characterDelete';
     public const CHARACTER_MIN_INTELLIGENCE = 'characterShowMinIntelligence';
+    public const CHARACTER_MIN_LIFE = 'characterShowMinLife';
+    public const CHARACTER_SAME_CASTE = 'characterShowSameCaste';
+    public const CHARACTER_SAME_KNOWLEDGE = 'characterShowSameKnowledge';
 
     private const ATTRIBUTES = array(
         self::CHARACTER_DISPLAY,
@@ -24,6 +27,9 @@ class CharacterVoter extends Voter
         self::CHARACTER_MODIFY,
         self::CHARACTER_DELETE,
         self::CHARACTER_MIN_INTELLIGENCE,
+        self::CHARACTER_MIN_LIFE,
+        self::CHARACTER_SAME_CASTE,
+        self::CHARACTER_SAME_KNOWLEDGE,
     );
 
     protected function supports(string $attribute, $subject): bool
@@ -44,6 +50,9 @@ class CharacterVoter extends Voter
         switch ($attribute) {
             case self::CHARACTER_DISPLAY:
             case self::CHARACTER_MIN_INTELLIGENCE:
+            case self::CHARACTER_MIN_LIFE:
+            case self::CHARACTER_SAME_CASTE:
+            case self::CHARACTER_SAME_KNOWLEDGE:
             case self::CHARACTER_INDEX:
                 return $this->canDisplay();
                 break;

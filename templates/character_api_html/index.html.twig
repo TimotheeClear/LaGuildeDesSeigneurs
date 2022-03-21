@@ -35,10 +35,18 @@
                     <a href="{{ path('character_api_html_show', {'identifier': character.identifier}) }}">{{ character.name }}</a>
             	</td>
                 <td>{{ character.surname }}</td>
-                <td>{{ character.caste }}</td>
-                <td>{{ character.knowledge }}</td>
-                <td>{{ character.life }}</td>
-                <td>{{ character.intelligence }}</td>
+                <td>
+                    <a href="{{ path('app_character_api_html_show_same_caste', {'caste': character.caste}) }}">{{ character.caste }}</a>
+                </td>
+                <td>
+                    <a href="{{ path('app_character_api_html_show_same_knowledge', {'knowledge': character.knowledge}) }}">{{ character.knowledge }}</a>
+                </td>
+                <td>
+                    <a href="{{ path('app_character_api_html_show_min_life', {'minLife': character.life}) }}">{{ character.life }}</a>
+                </td>
+                <td>
+                    <a href="{{ path('app_character_api_html_show_min_intelligence', {'minIntelligence': character.intelligence}) }}">{{ character.intelligence }}</a>
+                </td>
                 <td>{{ character.creation ? character.creation|date('d/m/Y') : '' }}</td>
                 <td>{{ character.modification ? character.modification|date('d/m/Y') : '' }}</td>
                 <td>

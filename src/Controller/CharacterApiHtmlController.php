@@ -95,6 +95,42 @@ class CharacterApiHtmlController extends AbstractController
         ]);
     }
 
+    #[Route('/show_min_life/{minLife}', name: 'app_character_api_html_show_min_life', methods: ['GET'])]
+    public function showMinLife(int $minLife) : Response
+    {
+        $response = $this->client->request(
+            'GET',
+            'http://localhost/LaGuildeDesSeigneurs/public/character/show_min_life/' . $minLife);
+            
+            return $this->render('character_api_html/index.html.twig', [
+            'characters' => $response->toArray(),
+        ]);
+    }
+
+    #[Route('/show_same_caste/{caste}', name: 'app_character_api_html_show_same_caste', methods: ['GET'])]
+    public function showSameCaste(string $caste) : Response
+    {
+        $response = $this->client->request(
+            'GET',
+            'http://localhost/LaGuildeDesSeigneurs/public/character/show_same_caste/' . $caste);
+            
+            return $this->render('character_api_html/index.html.twig', [
+            'characters' => $response->toArray(),
+        ]);
+    }
+
+    #[Route('/show_same_knowledge/{knowledge}', name: 'app_character_api_html_show_same_knowledge', methods: ['GET'])]
+    public function showSameKnowledge(string $knowledge) : Response
+    {
+        $response = $this->client->request(
+            'GET',
+            'http://localhost/LaGuildeDesSeigneurs/public/character/show_same_knowledge/' . $knowledge);
+            
+            return $this->render('character_api_html/index.html.twig', [
+            'characters' => $response->toArray(),
+        ]);
+    }
+
     /**
      * @Route("/{identifier}/edit", name="character_api_html_edit", methods={"GET","POST"})
      */
